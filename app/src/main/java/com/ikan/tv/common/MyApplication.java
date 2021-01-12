@@ -45,6 +45,8 @@ public final class MyApplication extends Application implements LifecycleOwner {
 
     private final LifecycleRegistry mLifecycle = new LifecycleRegistry(this);
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();

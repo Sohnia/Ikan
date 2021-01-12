@@ -2,7 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-aspectjx'
 apply from: '../config.gradle'
 apply from: 'proguard.gradle'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 //apply plugin: 'com.jakewharton.butterknife'
+
 
 android {
 
@@ -22,7 +24,7 @@ android {
             // armeabi：万金油架构平台（占用率：0%）
             // armeabi-v7a：曾经主流的架构平台（占用率：10%）
             // arm64-v8a：目前主流架构平台（占用率：90%）
-            abiFilters 'armeabi-v7a', 'arm64-v8a','x86'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
         }
 
         // 混淆配置
@@ -93,6 +95,12 @@ android {
             outputFileName += '.apk'
         }
     }
+
+    greendao {
+        schemaVersion 1                         //版本号
+        daoPackage 'com.ikan.tv.greendao.gen'    //自动生成的数据库相关类的包名
+        targetGenDir 'src/main/java'            //自动生成的数据库的相关灯的目录
+    }
 }
 
 // api 与 implementation 的区别：https://www.jianshu.com/p/8962d6ba936e
@@ -139,6 +147,7 @@ dependencies {
 
     // 手势 ImageView：https://github.com/chrisbanes/PhotoView
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
     // ViewPager 指示器：https://github.com/romandanylyk/PageIndicatorView
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 
@@ -165,7 +174,16 @@ dependencies {
     // 内存泄漏：https://github.com/square/leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
+    //greendao
+    implementation 'org.greenrobot:greendao:3.3.0' // add library
+    implementation 'org.greenrobot:greendao-generator:3.3.0'
 
+    //rxjava
+    implementation "io.reactivex.rxjava2:rxjava:2.1.1"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    //fastjson
+    implementation 'com.alibaba:fastjson:1.1.72.android'
     // 国际化：https://github.com/getActivity/MultiLanguages
     // 悬浮窗：https://github.com/getActivity/XToast
     // 工具类：https://github.com/Blankj/AndroidUtilCode

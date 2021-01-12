@@ -4,13 +4,10 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 
 import com.ikan.tv.R;
-import com.ikan.tv.bean.SearchBean;
+import com.ikan.tv.bean.SearchResultBean;
 import com.ikan.tv.common.MyAdapter;
-
-import java.util.List;
 
 /**
  *    author : Android 轮子哥
@@ -18,7 +15,7 @@ import java.util.List;
  *    time   : 2019/09/22
  *    desc   : 状态数据列表
  */
-public final class SearchResultAdapter extends MyAdapter<SearchBean> {
+public final class SearchResultAdapter extends MyAdapter<SearchResultBean> {
 
 
     public SearchResultAdapter( Context context) {

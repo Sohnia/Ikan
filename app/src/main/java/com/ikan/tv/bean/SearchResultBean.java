@@ -1,6 +1,6 @@
 package com.ikan.tv.bean;
 
-public class SearchBean {
+public class SearchResultBean {
     private String name;
     private String id;
     private String updateTime;
@@ -8,10 +8,10 @@ public class SearchBean {
     private String sourceName;
     private String sourceMainUrl;
 
-    public SearchBean() {
+    public SearchResultBean() {
     }
 
-    public SearchBean(String name, String id, String updateTime, String type, String sourceName, String sourceMainUrl) {
+    public SearchResultBean(String name, String id, String updateTime, String type, String sourceName, String sourceMainUrl) {
         this.name = name;
         this.id = id;
         this.updateTime = updateTime;

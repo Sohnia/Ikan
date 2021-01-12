@@ -14,6 +14,7 @@ buildscript {
         // 资源混淆插件：https://github.com/shwenzhang/AndResGuard
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
 //        classpath 'classpathom.jakewharton:butterknife-gradle-plugin:10.2.2'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0' // add plugin
     }
 }
 

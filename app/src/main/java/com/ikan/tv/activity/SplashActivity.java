@@ -2,21 +2,12 @@ package com.ikan.tv.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.view.View;
-
 import androidx.annotation.NonNull;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
-import com.hjq.http.EasyHttp;
-import com.hjq.http.listener.HttpCallback;
 import com.ikan.tv.R;
 import com.ikan.tv.common.MyActivity;
-import com.ikan.tv.http.model.HttpData;
-import com.ikan.tv.http.request.UserInfoApi;
-import com.ikan.tv.http.response.UserInfoBean;
-import com.ikan.tv.other.AppConfig;
 
 
 /**

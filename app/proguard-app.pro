@@ -58,6 +58,19 @@
 -dontwarn org.conscrypt.**
 
 # 不混淆这个包下的字段名
--keepclassmembernames class com.ikan.tv.http.** {
+-keepclassmembernames class com.hjq.http.** {
     <fields>;
 }
+
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties { *; }
+
+# If you DO use SQLCipher:
+-keep class org.greenrobot.greendao.database.SqlCipherEncryptedHelper { *; }
+
+# If you do NOT use SQLCipher:
+-dontwarn net.sqlcipher.database.**
+# If you do NOT use RxJava:
+-dontwarn rx.**

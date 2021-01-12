@@ -15,4 +15,5 @@ public final class LogoutApi implements IRequestApi {
     public String getApi() {
         return "user/logout";
     }
+
 }

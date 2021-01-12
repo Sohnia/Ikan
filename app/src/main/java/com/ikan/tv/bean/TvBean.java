@@ -1,9 +1,12 @@
-package com.android.ikan.bean;
+package com.ikan.tv.bean;
 
+
+import com.ikan.tv.dao.db.SourceDb;
 import java.util.List;
 
 public class TvBean {
     private String name;
+    private String requireId;
     private String tvType;
     private String lang;
     private String pic;
@@ -13,15 +16,18 @@ public class TvBean {
     private String actor;
     private String director;
     private String description;
-    private String picUrl;
     private List<String> playM3u8List;
     private List<String> shareList;
+    private SourceDb sourceDb;
+    private int lastWatch;
+    private int videoProgress;
 
     public TvBean() {
     }
 
-    public TvBean(String name, String tvType, String lang, String pic, String area, String year, int state, String actor, String director, String description, String picUrl, List<String> playM3u8List, List<String> shareList) {
+    public TvBean(String name, String requireId, String tvType, String lang, String pic, String area, String year, int state, String actor, String director, String description, List<String> playM3u8List, List<String> shareList, SourceDb sourceDb, int lastWatch, int videoProgress) {
         this.name = name;
+        this.requireId = requireId;
         this.tvType = tvType;
         this.lang = lang;
         this.pic = pic;
@@ -31,9 +37,11 @@ public class TvBean {
         this.actor = actor;
         this.director = director;
         this.description = description;
-        this.picUrl = picUrl;
         this.playM3u8List = playM3u8List;
         this.shareList = shareList;
+        this.sourceDb = sourceDb;
+        this.lastWatch = lastWatch;
+        this.videoProgress = videoProgress;
     }
 
     public String getName() {
@@ -116,14 +124,6 @@ public class TvBean {
         this.description = description;
     }
 
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
-    }
-
     public List<String> getPlayM3u8List() {
         return playM3u8List;
     }
@@ -140,10 +140,35 @@ public class TvBean {
         this.shareList = shareList;
     }
 
+    public SourceDb getSourceDb() {
+        return sourceDb;
+    }
+
+    public void setSourceDb(SourceDb sourceDb) {
+        this.sourceDb = sourceDb;
+    }
+
+    public int getLastWatch() {
+        return lastWatch;
+    }
+
+    public void setLastWatch(int lastWatch) {
+        this.lastWatch = lastWatch;
+    }
+
+    public int getVideoProgress() {
+        return videoProgress;
+    }
+
+    public void setVideoProgress(int videoProgress) {
+        this.videoProgress = videoProgress;
+    }
+
     @Override
     public String toString() {
         return "TvBean{" +
                 "name='" + name + '\'' +
+                ", requireId='" + requireId + '\'' +
                 ", tvType='" + tvType + '\'' +
                 ", lang='" + lang + '\'' +
                 ", pic='" + pic + '\'' +
@@ -153,9 +178,19 @@ public class TvBean {
                 ", actor='" + actor + '\'' +
                 ", director='" + director + '\'' +
                 ", description='" + description + '\'' +
-                ", picUrl='" + picUrl + '\'' +
                 ", playM3u8List=" + playM3u8List +
                 ", shareList=" + shareList +
+                ", sourceDb=" + sourceDb +
+                ", lastWatch=" + lastWatch +
+                ", videoProgress=" + videoProgress +
                 '}';
+    }
+
+    public String getRequireId() {
+        return requireId;
+    }
+
+    public void setRequireId(String requireId) {
+        this.requireId = requireId;
     }
 }
