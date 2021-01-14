@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ikan.tv.base.BaseAdapter;
+import com.ikan.tv.bean.SearchResultBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,7 @@ public abstract class MyAdapter<T> extends BaseAdapter<BaseAdapter.ViewHolder> {
 
     /**
      * 获取某个位置上的数据
+     * @return
      */
     public T getItem(@IntRange(from = 0) int position) {
         return mDataSet.get(position);

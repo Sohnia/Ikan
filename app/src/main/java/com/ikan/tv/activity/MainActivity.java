@@ -1,15 +1,24 @@
 package com.ikan.tv.activity;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ikan.tv.base.BaseFragmentAdapter;
 import com.ikan.tv.R;
+import com.ikan.tv.bean.SearchResultBean;
+import com.ikan.tv.bean.TvBean;
+import com.ikan.tv.bean.TvDetailBean;
 import com.ikan.tv.common.MyActivity;
 import com.ikan.tv.common.MyFragment;
 import com.ikan.tv.fragment.CatFragment;
@@ -18,13 +27,17 @@ import com.ikan.tv.fragment.MainFragment;
 import com.ikan.tv.fragment.MineFragment;
 import com.ikan.tv.helper.ActivityStackManager;
 import com.ikan.tv.helper.DoubleClickHelper;
+import com.ikan.tv.http.retrofit.ReOk;
+import com.ikan.tv.http.service.TvService;
 import com.ikan.tv.other.KeyboardWatcher;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 主页界面
+ * author : Android 轮子哥
+ * github : https://github.com/getActivity/AndroidProject
+ * time   : 2018/10/18
+ * desc   : 主页界面
  */
 public final class MainActivity extends MyActivity
         implements KeyboardWatcher.SoftKeyboardStateListener,
@@ -51,6 +64,7 @@ public final class MainActivity extends MyActivity
 
         KeyboardWatcher.with(this)
                 .setListener(this);
+        easyHttpTest();
     }
 
     @Override
@@ -140,5 +154,117 @@ public final class MainActivity extends MyActivity
     @Override
     public boolean isSwipeEnable() {
         return false;
+    }
+
+    public void easyHttpTest() {
+        ReOk.bindXml().create(TvService.class)
+                .searchWord("https://api.tiankongapi.com/api.php/provide/vod/at/xml/", "list", "阳光", 1)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(new Observer<SearchResultBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SearchResultBean searchResultBean) {
+                        Log.i("HTTP TEST1", "Result:" + searchResultBean.toString() + "");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        ReOk.bindXml().create(TvService.class)
+                .searchWord("https://api.tiankongapi.com/api.php/provide/vod/at/xml/", "list", "大叔大婶大大所多撒安达市大所多阿萨德的", 1)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(new Observer<SearchResultBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SearchResultBean searchResultBean) {
+                        Log.i("HTTP TEST2", "Result:" + searchResultBean.toString() + "");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("HTTP TEST4", e.getMessage() + "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        ReOk.bindXml().create(TvService.class)
+                .getTvDetail("https://api.tiankongapi.com/api.php/provide/vod/at/xml/", "videolist", 39898)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(new Observer<TvDetailBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(TvDetailBean tvBean) {
+                        Log.i("HTTP TEST3", "Result:" + tvBean.toString() + "");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("HTTP TEST3", e.getMessage() + "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        ReOk.bindXml().create(TvService.class)
+                .getTvDetail("https://api.tiankongapi.com/api.php/provide/vod/at/xml/", "videolist", 37507)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(new Observer<TvDetailBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(TvDetailBean tvBean) {
+                        Log.i("HTTP TEST4", "Result:" + tvBean.toString() + "");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("HTTP TEST4", e.getMessage() + "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

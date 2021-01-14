@@ -2,6 +2,14 @@ package com.android.ikan;
 
 import android.content.Context;
 
+import com.hjq.http.EasyHttp;
+import com.hjq.http.listener.HttpCallback;
+import com.hjq.http.listener.OnHttpListener;
+import com.ikan.tv.http.model.HttpData;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleRegistry;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -23,4 +31,5 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.android.ikan", appContext.getPackageName());
     }
+
 }

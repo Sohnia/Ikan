@@ -22,36 +22,95 @@ import com.hjq.toast.ToastUtils;
 import com.hjq.umeng.UmengClient;
 import com.ikan.tv.R;
 import com.ikan.tv.base.action.SwipeAction;
+import com.ikan.tv.bean.SourceResponseBean;
+import com.ikan.tv.dao.db.SourceDb;
+import com.ikan.tv.dao.model.SourceModel;
 import com.ikan.tv.helper.ActivityStackManager;
 import com.ikan.tv.http.model.RequestHandler;
+import com.ikan.tv.http.retrofit.ReOk;
 import com.ikan.tv.http.server.ReleaseServer;
 import com.ikan.tv.http.server.TestServer;
+import com.ikan.tv.http.service.SourceService;
 import com.ikan.tv.other.AppConfig;
 import com.ikan.tv.other.CrashHandler;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 
+import static android.content.ContentValues.TAG;
+
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 项目中的 Application 基类
+ * author : Android 轮子哥
+ * github : https://github.com/getActivity/AndroidProject
+ * time   : 2018/10/18
+ * desc   : 项目中的 Application 基类
  */
 public final class MyApplication extends Application implements LifecycleOwner {
 
     private final LifecycleRegistry mLifecycle = new LifecycleRegistry(this);
-
-
+    private SourceModel sourceModel;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
         initSdk(this);
+        sourceModel = new SourceModel(this);
+        requestSource();
+    }
+
+    private void requestSource() {
+        ReOk.bindGson()
+                .create(SourceService.class)
+                .getSources()
+                .subscribeOn(Schedulers.io())
+//                .flatMap(new Function<SourceResponseBean, ObservableSource<SourceDb>>() {
+//                    @Override
+//                    public ObservableSource<SourceDb> apply(SourceResponseBean sourceResponseBean) throws Exception {
+//                        Log.i("sourceDb :", sourceResponseBean.getSourceDbList().toString() + "");
+//                        return Observable.fromIterable(sourceResponseBean.getSourceDbList());
+//                    }
+//                })
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(new Observer<SourceResponseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SourceResponseBean sourceResponseBean) {
+                        sourceModel.insertAll(sourceResponseBean.getSourceDbList());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("SourceDb",e.getMessage() + "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @NonNull

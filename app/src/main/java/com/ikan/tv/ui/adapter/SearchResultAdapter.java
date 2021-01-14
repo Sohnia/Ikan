@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.ikan.tv.R;
 import com.ikan.tv.bean.SearchResultBean;
+import com.ikan.tv.bean.SearchVideoBean;
 import com.ikan.tv.common.MyAdapter;
 
 /**
@@ -15,7 +16,7 @@ import com.ikan.tv.common.MyAdapter;
  *    time   : 2019/09/22
  *    desc   : 状态数据列表
  */
-public final class SearchResultAdapter extends MyAdapter<SearchResultBean> {
+public final class SearchResultAdapter extends MyAdapter<SearchVideoBean> {
 
 
     public SearchResultAdapter( Context context) {

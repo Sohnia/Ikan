@@ -1,67 +1,83 @@
-package com.ikan.tv.bean;
+package com.ikan.tv.dao.db;
 
-import com.ikan.tv.dao.db.SourceDb;
-
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Path;
-import org.simpleframework.xml.Root;
+import com.ikan.tv.dao.convert.SourceDbConvert;
+import com.ikan.tv.dao.convert.StringConvert;
+import org.greenrobot.greendao.annotation.Convert;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
 
 import java.util.List;
 
-@Root(name = "video", strict = false)
-public class TvBean {
-    @Element(required = false)
+@Entity(indexes = {@Index(value = "name,soureceName", unique = true)})
+public  class StoreDb {
+    @Id(autoincrement = true)
     private Long id;
-    @Element(required = false)
-    private String name;
-    @Element(required = false)
-    private String soureceName;
-    @Element(required = false)
-    private String requireId;
-    @Element(name = "type", required = false)
-    private String tvType;
-    @Element(required = false)
-    private String lang;
-    @Element(required = false)
-    private String pic;
-    @Element(required = false)
-    private String area;
-    @Element(required = false)
-    private int state;
-    @Element(required = false)
-    private String year;
-    @Element(required = false)
-    private String actor;
-    @Element(required = false)
-    private String director;
-    @Element(name = "des", required = false)
-    private String description;
-    @Element(name = "last", required = false)
     private String updateTime;
-    @Element(name = "note", required = false)
-    private String note;
 
-    @Element(required = false)
-    private int lastWatch;
-    @Element(required = false)
-    private int videoProgress;
-
-    @Element(name = "dl", required = false)
-    private DramaInfo dramaInfo;
-
-    @Element(required = false)
-    private List<String> playM3u8List;
-    @Element(required = false)
-    private List<String> shareList;
-
-    @Element(required = false)
-    private SourceDb sourceDb;
-
-    public TvBean() {
+    @Override
+    public String toString() {
+        return "StoreDb{" +
+                "id=" + id +
+                ", updateTime='" + updateTime + '\'' +
+                ", note='" + note + '\'' +
+                ", name='" + name + '\'' +
+                ", soureceName='" + soureceName + '\'' +
+                ", requireId='" + requireId + '\'' +
+                ", tvType='" + tvType + '\'' +
+                ", lang='" + lang + '\'' +
+                ", pic='" + pic + '\'' +
+                ", area='" + area + '\'' +
+                ", year='" + year + '\'' +
+                ", state=" + state +
+                ", actor='" + actor + '\'' +
+                ", director='" + director + '\'' +
+                ", description='" + description + '\'' +
+                ", lastWatch=" + lastWatch +
+                ", videoProgress=" + videoProgress +
+                ", lastTimeToDb=" + lastTimeToDb +
+                ", playM3u8List=" + playM3u8List +
+                ", shareList=" + shareList +
+                ", sourceDb=" + sourceDb +
+                '}';
     }
 
-    public TvBean(Long id, String name, String soureceName, String requireId, String tvType, String lang, String pic, String area, int state, String year, String actor, String director, String description, String updateTime, String note, int lastWatch, int videoProgress, DramaInfo dramaInfo, List<String> playM3u8List, List<String> shareList, SourceDb sourceDb) {
+    private String note;
+    private String name;
+    private String soureceName;
+    private String requireId;
+    private String tvType;
+    private String lang;
+    private String pic;
+    private String area;
+    private String year;
+    private int state;
+    private String actor;
+    private String director;
+    private String description;
+    private int lastWatch;
+    private int videoProgress;
+    private long lastTimeToDb;
+
+    @Convert(columnType = String.class, converter = StringConvert.class)
+    private List<String> playM3u8List;
+
+    @Convert(columnType = String.class, converter = StringConvert.class)
+    private List<String> shareList;
+    @Convert(converter = SourceDbConvert.class, columnType = String.class)
+    private SourceDb sourceDb;
+
+    @Generated(hash = 1587217520)
+    public StoreDb() {
+    }
+
+    @Generated(hash = 765075495)
+    public StoreDb(Long id, String updateTime, String note, String name, String soureceName, String requireId, String tvType, String lang, String pic, String area, String year, int state, String actor, String director, String description, int lastWatch, int videoProgress, long lastTimeToDb, List<String> playM3u8List, List<String> shareList,
+            SourceDb sourceDb) {
         this.id = id;
+        this.updateTime = updateTime;
+        this.note = note;
         this.name = name;
         this.soureceName = soureceName;
         this.requireId = requireId;
@@ -69,16 +85,14 @@ public class TvBean {
         this.lang = lang;
         this.pic = pic;
         this.area = area;
-        this.state = state;
         this.year = year;
+        this.state = state;
         this.actor = actor;
         this.director = director;
         this.description = description;
-        this.updateTime = updateTime;
-        this.note = note;
         this.lastWatch = lastWatch;
         this.videoProgress = videoProgress;
-        this.dramaInfo = dramaInfo;
+        this.lastTimeToDb = lastTimeToDb;
         this.playM3u8List = playM3u8List;
         this.shareList = shareList;
         this.sourceDb = sourceDb;
@@ -219,13 +233,12 @@ public class TvBean {
     public void setSoureceName(String soureceName) {
         this.soureceName = soureceName;
     }
-
-    public String getUpdateTime() {
-        return updateTime;
+    public long getLastTimeToDb() {
+        return lastTimeToDb;
     }
 
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    public void setLastTimeToDb(long lastTimeToDb) {
+        this.lastTimeToDb = lastTimeToDb;
     }
 
     public String getRequireId() {
@@ -236,6 +249,14 @@ public class TvBean {
         this.requireId = requireId;
     }
 
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public String getNote() {
         return note;
     }
@@ -243,40 +264,5 @@ public class TvBean {
     public void setNote(String note) {
         this.note = note;
     }
-
-
-    public DramaInfo getDramaInfo() {
-        return dramaInfo;
-    }
-
-    public void setDramaInfo(DramaInfo dramaInfo) {
-        this.dramaInfo = dramaInfo;
-    }
-
-    @Override
-    public String toString() {
-        return "TvBean{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", soureceName='" + soureceName + '\'' +
-                ", requireId='" + requireId + '\'' +
-                ", tvType='" + tvType + '\'' +
-                ", lang='" + lang + '\'' +
-                ", pic='" + pic + '\'' +
-                ", area='" + area + '\'' +
-                ", state=" + state +
-                ", year='" + year + '\'' +
-                ", actor='" + actor + '\'' +
-                ", director='" + director + '\'' +
-                ", description='" + description + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                ", note='" + note + '\'' +
-                ", lastWatch=" + lastWatch +
-                ", videoProgress=" + videoProgress +
-                ", dramaInfo=" + dramaInfo +
-                ", playM3u8List=" + playM3u8List +
-                ", shareList=" + shareList +
-                ", sourceDb=" + sourceDb +
-                '}';
-    }
 }
+

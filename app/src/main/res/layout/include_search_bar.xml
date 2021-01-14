@@ -14,8 +14,8 @@
         android:background="@drawable/search_bg"
         />
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/downtask"
         android:layout_marginEnd="20dp"
@@ -30,8 +30,8 @@
         />
     <ImageView
         android:id="@+id/downtask"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"

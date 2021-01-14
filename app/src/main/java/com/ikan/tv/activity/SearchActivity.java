@@ -9,6 +9,7 @@ import com.hjq.http.EasyHttp;
 import com.ikan.tv.R;
 import com.ikan.tv.base.BaseAdapter;
 import com.ikan.tv.bean.SearchResultBean;
+import com.ikan.tv.bean.SearchVideoBean;
 import com.ikan.tv.common.MyActivity;
 import com.ikan.tv.ui.adapter.SearchBtnAdapter;
 import com.ikan.tv.ui.adapter.SearchResultAdapter;
@@ -106,7 +107,7 @@ class SearchActivity extends MyActivity implements
         }
     }
 
-    private void goDetail(SearchResultBean item) {
+    private void goDetail(SearchVideoBean item) {
 
     }
 
@@ -115,11 +116,7 @@ class SearchActivity extends MyActivity implements
             tintLinearLayout.setVisibility(View.INVISIBLE);
             resultLinearLayout.setVisibility(View.VISIBLE);
         }
-        for(){
-            EasyHttp.get(this)
-                    .api(url)
-                    .request();
-        }
+
     }
 
 }
